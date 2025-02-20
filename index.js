@@ -7,6 +7,7 @@ import { connectDB } from './database/dbconnection.js';
 import userRoutes from "./routes/userRoutes.js"
 import authRoutes from "./routes/authRoutes.js"
 import postRoutes from "./routes/postRoutes.js"
+import messageRoutes from "./routes/messageRoutes.js"
 
 
 const app = express();
@@ -27,6 +28,7 @@ const PORT = process.env.PORT;
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/post", postRoutes);
+app.use("/api/messages", messageRoutes);
 
 app.get("/", (req, res) => {
     res.send("This is a get request")

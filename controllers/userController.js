@@ -120,3 +120,16 @@ export const updatePassword=TryCatch(async (req,res)=>{
             message:"Password Updated"
         })
 })
+
+export const getAllUsers=TryCatch(async (req,res)=>{
+    const search=req.query.search ||""
+    const users=await User.find({
+        name:{
+            $regex:search,
+            $options:"i"
+        },
+        _id:{$ne:req.user._id}
+    }).select("-password");
+
+    res.json(users);
+})

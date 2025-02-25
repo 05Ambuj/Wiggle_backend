@@ -8,8 +8,6 @@ import TryCatch from '../utils/tryCatch.js';
 export const registerUser = TryCatch(async (req, res) => {
     const { name, email, password, gender } = req.body;
 
-    console.log(req.body);
-
     const file = req.file;
 
     if (!name || !email || !password || !gender || !file) {

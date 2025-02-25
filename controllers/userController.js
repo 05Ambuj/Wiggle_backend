@@ -22,8 +22,9 @@ export const userProfile = TryCatch(async (req, res) => {
 export const followAndUnfollowUser = TryCatch(async (req, res) => {
     const user = await User.findById(req.params.id)
     const loggedInUser = await User.findById(req.user._id)
+
     if (!user) res.status(404).json({
-        message: "No User with this Id"
+        message: "No User with this Id" 
     })
 
     if (user._id.toString() === loggedInUser._id.toString())

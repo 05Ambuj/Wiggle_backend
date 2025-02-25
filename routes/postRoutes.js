@@ -7,9 +7,9 @@ const router =express.Router();
 
 router.get("/all",isAuth,getAllPost)
 router.post("/new",isAuth,uploadFile, newPost)
+router.delete("/:id",isAuth,deletePost)
 router.post("/like/:id", isAuth, likeUnlikePost);
 router.post("/comment/:id", isAuth, commentonPost);
 router.delete("/comment/:id", isAuth, deleteComment);
-router.delete("/:id",isAuth,deletePost)
 
 export default router

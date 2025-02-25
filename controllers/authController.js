@@ -41,7 +41,7 @@ export const registerUser = TryCatch(async (req, res) => {
         }
     })
 
-    generateToken(User._id, res);
+    generateToken(user._id, res);
 
     res.status(201).json({
         message: "User registered Succeessfully",

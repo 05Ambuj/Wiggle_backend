@@ -31,7 +31,7 @@ app.use("/api/post", postRoutes);
 app.use("/api/messages", messageRoutes);
 
 app.get("/", (req, res) => {
-    res.send("This is a get request")
+    res.send("Server is running")
 })
 app.use(express.json());
 app.listen(PORT, () => {

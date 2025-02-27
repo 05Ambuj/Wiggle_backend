@@ -100,26 +100,24 @@ export const updateProfile=TryCatch(async (req,res)=>{
         });
 })
 
-export const updatePassword=TryCatch(async (req,res)=>{
-    const user= await User.findById(req.user._id)
+export const updatePassword = TryCatch(async (req, res) => {
+    const user = await User.findById(req.user._id);
 
-    const {oldPassword,newPassword}=req.body
+    const { oldPassword, newPassword } = req.body;
 
-    const comparePassword =await bcrypt.compare(oldPassword,user.password)
+    const comparePassword = await bcrypt.compare(oldPassword, user.password);
 
-    if(!comparePassword)
-        res.status(404).json({
-            message:"Incorrect old password"
+    if (!comparePassword) {
+        return res.status(404).json({ 
+            message: "Incorrect old password"
         });
-    
-        user.password=await bcrypt.hash(newPassword,10)
+    }
 
-        await user.save()
+    user.password = await bcrypt.hash(newPassword, 10);
+    await user.save();
 
-        res.json({
-            message:"Password Updated"
-        })
-})
+    return res.json({ message: "Password Updated" }); // Added `return` here for consistency
+});
 
 export const getAllUsers=TryCatch(async (req,res)=>{
     const search=req.query.search ||""

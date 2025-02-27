@@ -2,15 +2,14 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cloudinary from 'cloudinary';
 import cookieParser from 'cookie-parser';
-
+import path from 'path'
 import { connectDB } from './database/dbconnection.js';
 import userRoutes from "./routes/userRoutes.js"
 import authRoutes from "./routes/authRoutes.js"
 import postRoutes from "./routes/postRoutes.js"
 import messageRoutes from "./routes/messageRoutes.js"
+import { app,server } from './socket/socket.js';
 
-
-const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
@@ -30,11 +29,18 @@ app.use("/api/auth", authRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/messages", messageRoutes);
 
-app.get("/", (req, res) => {
-    res.send("Server is running")
-})
 app.use(express.json());
-app.listen(PORT, () => {
+
+const __dirname=path.resolve()
+
+app.use(express.static(path.join(__dirname,"../frontend/dist"))) 
+
+app.get("*",(req,res)=>{
+    res.sendFile(path.join(__dirname,"/frontend","/dist","index.html"))
+})
+
+server.listen(PORT, () => {
     console.log(`server is listening on  http://localhost:${PORT} `);
     connectDB();
 }) 
+
